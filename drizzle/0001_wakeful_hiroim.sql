@@ -1,0 +1,2 @@
+ALTER TABLE "workspace_members" ADD COLUMN "part_of" uuid;--> statement-breakpoint
+ALTER TABLE "workspace_members" ADD CONSTRAINT "workspace_members_part_of_workspace_workspace_id_fk" FOREIGN KEY ("part_of") REFERENCES "public"."workspace"("workspace_id") ON DELETE no action ON UPDATE no action;

@@ -1,0 +1,1 @@
+ALTER TABLE "workspace_members" ADD CONSTRAINT "workspace_members_member_name_user_id_fk" FOREIGN KEY ("member_name") REFERENCES "public"."user"("id") ON DELETE no action ON UPDATE no action;
