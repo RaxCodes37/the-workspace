@@ -44,6 +44,7 @@ export const createWorkspace = async (
 export const getUserWorkspaces = async (userId: string) => {
   const partOfWorkspace = await db
     .select({
+      workspaceId: memberTable.partOf,
       workspaceName: memberTable.partOfName,
     })
     .from(memberTable)
