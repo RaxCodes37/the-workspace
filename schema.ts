@@ -12,6 +12,7 @@ export const workspaceTable = pgTable("workspace", {
 export const memberTable = pgTable("workspace_members", {
   membershipId: uuid("membership_id").defaultRandom().primaryKey(),
   partOf: uuid("part_of").references(() => workspaceTable.workspaceId),
+  partOfName: varchar("part_of_name").references(() => workspaceTable.workspaceName),
   memberName: text("member_name").references(() => user.name),
   memberId: text ("member_id").references(() => user.id),
   memberEmail: text("member_email").references(() => user.email),
