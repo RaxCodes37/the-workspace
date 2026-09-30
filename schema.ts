@@ -6,17 +6,17 @@ export const workspaceTable = pgTable("workspace", {
   workspaceName: varchar("workspace_name", { length: 100 }).notNull(),
   memberCount: integer("member_count").notNull().default(0),
   workspaceCreator: text("workspace_creator").references(() => user.name).notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-})
+  createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
+});
 
 export const memberTable = pgTable("workspace_members", {
   membershipId: uuid("membership_id").defaultRandom().primaryKey(),
   partOf: uuid("part_of").references(() => workspaceTable.workspaceId),
   memberName: text("member_name").references(() => user.name),
-  memberId: text("member_id").references(() => user.id),
+  memberId: text ("member_id").references(() => user.id),
   memberEmail: text("member_email").references(() => user.email),
   role: varchar("member_role", { length: 8 }).notNull().default("member"),
-})
+});
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
