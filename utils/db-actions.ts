@@ -3,6 +3,7 @@
 import { memberTable, workspaceTable } from "@/schema";
 import { db } from "..";
 import { eq, sql } from "drizzle-orm";
+import { ViewUserWorkspaces } from "./interfaces";
 
 export const createWorkspace = async (
   workspaceName: string,
@@ -20,7 +21,7 @@ export const createWorkspace = async (
     .returning({
       workspaceId: workspaceTable.workspaceId,
     });
-  
+
   //Increasing member count to include creator
   await db
     .update(workspaceTable)
@@ -35,6 +36,18 @@ export const createWorkspace = async (
     memberId: userId,
     memberEmail: userEmail,
     partOf: newWorkspace[0].workspaceId,
+    partOfName: workspaceName,
     role: "creator",
   });
+};
+
+export const getUserWorkspaces = async (userId: string) => {
+  const partOfWorkspace = await db
+    .select({
+      workspaceName: memberTable.partOfName,
+    })
+    .from(memberTable)
+    .where(eq(memberTable.memberId, userId));
+
+  return partOfWorkspace as ViewUserWorkspaces[];
 };
