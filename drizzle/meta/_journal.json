@@ -29,6 +29,20 @@
       "when": 1790654449419,
       "tag": "0003_bright_the_hood",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1790745345245,
+      "tag": "0004_curved_purple_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1790745623918,
+      "tag": "0005_ambitious_sinister_six",
+      "breakpoints": true
     }
   ]
 }
