@@ -1,7 +1,6 @@
 "use client";
 
 import { createWorkspace } from "@/utils/db-actions";
-import e from "cors";
 import React, { useState } from "react";
 
 interface Props {
@@ -30,7 +29,7 @@ export default function CreateWorkspaceComponent({
     try {
       await createWorkspace(workspaceName, userName, userEmail, userId);
 
-      setMessage("Workspace created successfully");
+      setMessage("Workspace created successfully!");
       setWorkspaceName("");
     } catch (error) {
       console.error(error);

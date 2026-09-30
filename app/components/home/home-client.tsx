@@ -5,12 +5,12 @@ import WorkspaceForm from "./workspace-form";
 import { useState } from "react";
 
 interface Props {
-  userName: string
+  userName: string;
   userId: string;
-  userEmail: string
+  userEmail: string;
 }
 
-export default function HomeClient({userName, userId, userEmail}: Props) {
+export default function HomeClient({ userName, userId, userEmail }: Props) {
   const router = useRouter();
 
   const [message, setMessage] = useState<string>("");
@@ -28,8 +28,21 @@ export default function HomeClient({userName, userId, userEmail}: Props) {
           View your Workspaces
         </button>
 
-        <WorkspaceForm userName={userName} userId={userId} userEmail={userEmail} setMessage={setMessage}/>
+        <WorkspaceForm
+          userName={userName}
+          userId={userId}
+          userEmail={userEmail}
+          setMessage={setMessage}
+        />
       </div>
+
+      {message === "" ? (
+        <div></div>
+      ) : (
+        <div className="mt-10">
+          <p className="text-xl font-semibold">{message}</p>
+        </div>
+      )}
     </div>
   );
 }
