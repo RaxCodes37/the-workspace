@@ -38,6 +38,7 @@ export default function CreateWorkspaceComponent({
 
       setMessage("Workspace created successfully!");
       setWorkspaceName("");
+      setWorkspacePassword("");
     } catch (error) {
       console.error(error);
 
