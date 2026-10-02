@@ -50,6 +50,13 @@
       "when": 1790912130362,
       "tag": "0006_large_dragon_lord",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1790914392845,
+      "tag": "0007_funny_mantis",
+      "breakpoints": true
     }
   ]
 }
