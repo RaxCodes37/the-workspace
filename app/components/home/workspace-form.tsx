@@ -18,7 +18,7 @@ export default function WorkspaceForm({userName, userId, userEmail, setMessage}:
 
       <hr className="my-5 border-[#3d3d3d]"/>
 
-      <JoinWorkspaceComponent/>
+      <JoinWorkspaceComponent userName={userName} userId={userId} userEmail={userEmail} setMessage={setMessage}/>
     </div>
   )
 }

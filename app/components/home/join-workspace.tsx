@@ -1,14 +1,52 @@
-"use client"
+"use client";
 
-import React, { useState } from 'react'
+import { joinWorkspace } from "@/utils/db-actions";
+import React, { useState } from "react";
 
-export default function JoinWorkspaceComponent() {
+interface Props {
+  userName: string;
+  userId: string;
+  userEmail: string;
+  setMessage: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function JoinWorkspaceComponent({
+  userName,
+  userId,
+  userEmail,
+  setMessage,
+}: Props) {
   const [workspaceName, setWorkspaceName] = useState<string>("");
   const [workspacePassword, setWorkspacePassword] = useState<string>("");
 
-  const joinWorkspaceFunction = (e: React.FormEvent) => {
+  const joinWorkspaceFunction = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  }
+    if (workspaceName.trim() === "") {
+      setMessage("Please enter a valid Workspace name and/or password");
+      return;
+    }
+
+    try {
+      await joinWorkspace(
+        workspaceName,
+        workspacePassword,
+        userName,
+        userEmail,
+        userId,
+      );
+
+      setMessage(`Joined ${workspaceName} successfully!`);
+      setWorkspaceName("");
+      setWorkspacePassword("");
+    } catch (error) {
+      console.error(error);
+
+      setMessage(
+        `Error while trying to join "${workspaceName}", try again later.`,
+      );
+    }
+  };
 
   return (
     <div className="flex flex-col gap-3 px-20">
@@ -39,5 +77,5 @@ export default function JoinWorkspaceComponent() {
         </button>
       </form>
     </div>
-  )
+  );
 }

@@ -2,7 +2,7 @@
 
 import { memberTable, workspaceTable } from "@/schema";
 import { db } from "..";
-import { eq, sql } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { ViewUserWorkspaces } from "./interfaces";
 
 export const createWorkspace = async (
@@ -28,7 +28,7 @@ export const createWorkspace = async (
   await db
     .update(workspaceTable)
     .set({
-      memberCount: sql`+ 1`,
+      memberCount: sql`${workspaceTable.memberCount}+ 1`,
     })
     .where(eq(workspaceTable.workspaceId, newWorkspace[0].workspaceId));
 
@@ -53,4 +53,57 @@ export const getUserWorkspaces = async (userId: string) => {
     .where(eq(memberTable.memberId, userId));
 
   return partOfWorkspace as ViewUserWorkspaces[];
+};
+
+export const joinWorkspace = async (
+  workspaceName: string,
+  workspacePassword: string,
+  userName: string,
+  userEmail: string,
+  userId: string,
+) => {
+  //Checking to see if workspace exists
+  const getWorkspace = await db
+    .select({
+      workspaceName: workspaceTable.workspaceName,
+      workspacePassword: workspaceTable.workspacePassword,
+      workspaceId: workspaceTable.workspaceId,
+    })
+    .from(workspaceTable)
+    .where(eq(workspaceTable.workspaceName, workspaceName));
+
+  const checkForUser = await db
+    .select()
+    .from(memberTable)
+    .where(
+      and(
+        eq(memberTable.partOfName, workspaceName),
+        eq(memberTable.memberName, userName),
+      ),
+    );
+
+  if (
+    //Workspace name was already checked when looking for workspace
+    getWorkspace.length > 0 &&
+    getWorkspace[0].workspacePassword === workspacePassword &&
+    checkForUser.length < 1 //User can't already be a part of workspace
+  ) {
+    await db
+      .update(workspaceTable)
+      .set({
+        memberCount: sql`${workspaceTable.memberCount}+ 1`,
+      })
+      .where(eq(workspaceTable.workspaceId, getWorkspace[0].workspaceId));
+
+    //Adds member to member table and gives his default role.
+    await db.insert(memberTable).values({
+      memberName: userName,
+      memberId: userId,
+      memberEmail: userEmail,
+      partOf: getWorkspace[0].workspaceId,
+      partOfName: workspaceName,
+    });
+  } else {
+    return
+  }
 };
