@@ -1,0 +1,1 @@
+ALTER TABLE "workspace" ADD COLUMN "workspace_password" varchar(100) NOT NULL;
