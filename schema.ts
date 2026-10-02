@@ -4,6 +4,7 @@ import { pgTable, text, timestamp, boolean, index, uuid, varchar, integer } from
 export const workspaceTable = pgTable("workspace", {
   workspaceId: uuid("workspace_id").defaultRandom().primaryKey(),
   workspaceName: varchar("workspace_name", { length: 100 }).notNull(),
+  workspacePassword: varchar("workspace_password", { length: 100 }).notNull(),
   memberCount: integer("member_count").notNull().default(0),
   workspaceCreator: text("workspace_creator").references(() => user.name).notNull(),
   createdAt: timestamp("created_at", { mode: "string" }).defaultNow().notNull(),
