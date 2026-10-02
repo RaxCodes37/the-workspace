@@ -7,6 +7,7 @@ import { ViewUserWorkspaces } from "./interfaces";
 
 export const createWorkspace = async (
   workspaceName: string,
+  workspacePassword: string,
   userName: string,
   userEmail: string,
   userId: string,
@@ -16,6 +17,7 @@ export const createWorkspace = async (
     .insert(workspaceTable)
     .values({
       workspaceName,
+      workspacePassword,
       workspaceCreator: userName,
     })
     .returning({
