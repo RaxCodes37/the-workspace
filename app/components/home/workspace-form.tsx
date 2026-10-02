@@ -13,8 +13,10 @@ interface Props {
 
 export default function WorkspaceForm({userName, userId, userEmail, setMessage}: Props) {
   return (
-    <div className="border border-[#3d3d3d] bg-[#272525] flex flex-col items-center gap-3 w-85 sm:w-100 text-center rounded-md py-5">
+    <div className="border border-[#3d3d3d] bg-[#272525]  gap-3 w-85 sm:w-100 text-center rounded-md py-5">
       <CreateWorkspaceComponent userName={userName} userId={userId} userEmail={userEmail} setMessage={setMessage}/>
+
+      <hr className="my-5 border-[#3d3d3d]"/>
 
       <JoinWorkspaceComponent/>
     </div>

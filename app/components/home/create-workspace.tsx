@@ -48,13 +48,13 @@ export default function CreateWorkspaceComponent({
   };
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 px-20">
       <h2 className="text-xl font-bold">Create a new Workspace</h2>
 
       <form action="" className="flex flex-col gap-2">
         <input
           type="text"
-          placeholder="Workspace name"
+          placeholder="Workspace Name"
           className="border border-[#3d3d3d] bg-[#272525] py-1 px-2 rounded-md outline-0 w-full"
           value={workspaceName}
           onChange={(e) => setWorkspaceName(e.target.value)}
